@@ -39,19 +39,27 @@ namespace ConversionMonedaAPI.Controllers
 
         private string GenerarToken()
         {
+            Claim[] claims = new[]
+            {
+            new Claim("Nombre", "Eduardo Slee"),
+            new Claim("Empresa", "Slee Technologies"),
+            new Claim("Url", "https://www.linkedin.com/in/eduardoslee/")
+            };
+
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Credentials:SecretToken"]));
             SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             int horasExpiracion = Int32.Parse(configuration["Credentials:HoursExpiration"]);
             DateTime expiration = DateTime.UtcNow.AddHours(horasExpiracion);
 
-            JwtSecurityToken jwtToken = new JwtSecurityToken(
+            JwtSecurityToken secToken = new JwtSecurityToken(
             issuer: configuration["Credentials:Domain"],
             audience: configuration["Credentials:Domain"],
+            claims: claims,
             expires: expiration,
             signingCredentials: creds
             );
 
-            string token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
+            string token = new JwtSecurityTokenHandler().WriteToken(secToken);
 
             return token;
         }
