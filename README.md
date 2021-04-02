@@ -1,4 +1,4 @@
-# AutenticacionJWT
+# Autenticación usando JWT (JSON Web Token) con ASP.NET Core
 API que solicita autenticación mediante JWT. Contiene como método de prueba la conversión de dólares (USD) a soles (PEN).
 Para probar esta API debes seguir los siguientes pasos:
 1. Ejecuta el método "GeneracionToken", el cual genera dinámicamente el JWT. Copia este valor.
